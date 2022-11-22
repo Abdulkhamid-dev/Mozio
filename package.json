@@ -25,7 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "json-server": "json-server --watch ./src/db/cities.json --port 3010",
+    "json-server": "json-server --watch ./db.json --port 3010",
     "start": "concurrently \"npm run json-server\" \" react-scripts start\"",
     "start:dev": "concurrently  \"npm start\"",
     "build": "react-scripts build",
