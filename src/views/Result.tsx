@@ -20,7 +20,11 @@ function Result() {
   }, []);
 
   const earnCities = () => {
-    setAllLocation([start, ...cities.split(","), end]);
+    if (cities.length > 0) {
+      setAllLocation([start, ...cities.split(","), end]);
+    } else {
+      setAllLocation([start, end]);
+    }
   };
 
   useEffect(() => {
