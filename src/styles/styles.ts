@@ -201,7 +201,7 @@ export const StyledStart = styled.div`
   width: 100%;
   max-width: 650px;
   min-height: 75vh;
-  background-color: rgba(181, 181, 181, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   border-radius: 6px;
   display: flex;
@@ -214,4 +214,17 @@ export const StyledStart = styled.div`
   .main {
     padding: 10px;
   }
+`;
+
+export const StyledResult = styled.div`
+  padding: 10px;
+  width: 100%;
+  max-width: 650px;
+  min-height: 75vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;

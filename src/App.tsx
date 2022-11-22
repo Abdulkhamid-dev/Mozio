@@ -28,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/results" element={<Result />} />
+        <Route path="*" element={<Start />} />
       </Routes>
     </StyledApp>
   );

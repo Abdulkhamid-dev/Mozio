@@ -65,7 +65,7 @@ function SelectCity(props: any) {
     props.callBack(value);
   };
   return (
-    <Form.Item label={props.InpLabel} name={props.InpName}  rules={[{required: true, message: 'Please fill the gap'}]}>
+    <Form.Item label={props.InpLabel}   rules={[{required: true, message: 'Please fill the gap'}]}>
       <Select
         size="large"
         showSearch

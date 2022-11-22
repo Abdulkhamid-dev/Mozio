@@ -15,9 +15,10 @@ function Start() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const debouncedSearch = useDebounce(search, 500);
+  const [pesseng, setPesseng] = useState<string | number | null>("1");
   const [inputValues, setInputValues] = useState<IinputValues>({
-    start: "",
-    end: "",
+    origin: "",
+    destination: "",
     intermediates: [],
     passengers: 1,
     date: moment(new Date()),
@@ -73,15 +74,18 @@ function Start() {
     setSelectOption(filtered);
   };
   const setOriginCity = (value: string) => {
-    setInputValues({ ...inputValues, start: value });
+    setInputValues({ ...inputValues, origin: value });
+    isValid();
   };
   const setDestinationCity = (value: string) => {
-    setInputValues({ ...inputValues, end: value });
+    setInputValues({ ...inputValues, destination: value });
+    isValid();
   };
 
   const handleChange = (value: string[]) => {
     setInputValues({ ...inputValues, intermediates: value });
     getCities();
+    isValid();
   };
   const handlePassenger = (e: { target: { value: any } }) => {
     setInputValues({ ...inputValues, passengers: e.target.value });
@@ -95,42 +99,48 @@ function Start() {
     dateString
   ): void => {
     setInputValues({ ...inputValues, date: moment(dateString) });
+    isValid();
   };
 
-  const handleFormChange = () => {
-    const hasErrors = form.getFieldsError().some(({ errors }) => errors.length);
-    setDisabledSave(hasErrors);
+  const isValid = () => {
+    const { origin, destination, date, passengers } = inputValues;
+    if (
+      origin === "" ||
+      destination === "" ||
+      date === null ||
+      passengers === undefined
+    ) {
+      setDisabledSave(true);
+    } else {
+      setDisabledSave(false);
+    }
   };
   const handleSubmit = () => {
-    const { start, end, passengers, date, intermediates } = inputValues;
+    const { origin, destination, passengers, date, intermediates } =
+      inputValues;
     navigate({
       pathname: "/results",
-      search: `?start=${start}&end=${end}&date=${moment(date).format(
+      search: `?start=${origin}&end=${destination}&date=${moment(date).format(
         "YYYY-MM-DD"
       )}&passengers=${passengers}&cities=${intermediates}`,
     });
   };
+
   return (
     <StyledStart>
       <h1 className="title">Travel around the Italy</h1>
       <div className="main">
-        <Form
-          layout="vertical"
-          onFinish={handleSubmit}
-          onFieldsChange={handleFormChange}
-        >
+        <Form layout="vertical" onFinish={handleSubmit}>
           <Row gutter={20}>
             <Col span={12}>
               <SelectCity
                 InpLabel="Select City origin"
-                InpName="origin"
                 callBack={setOriginCity}
               />
             </Col>
             <Col span={12}>
               <SelectCity
                 InpLabel="Select City destination"
-                InpName="destination"
                 callBack={setDestinationCity}
               />
             </Col>
@@ -139,7 +149,6 @@ function Start() {
             <Col span={24}>
               <Form.Item
                 label="Intermediate cities"
-                name="intermediate"
                 rules={[{ required: false, message: "Please input" }]}
               >
                 <Select
@@ -161,7 +170,6 @@ function Start() {
             <Col span={12}>
               <Form.Item
                 label="Date"
-                name="date"
                 rules={[{ required: true, message: "Please input Date" }]}
               >
                 <DatePicker
@@ -174,20 +182,23 @@ function Start() {
             <Col span={12}>
               <Form.Item
                 label="Passengers"
-                name="passengers"
                 rules={[{ required: true, message: "Please input passengers" }]}
               >
                 <InputNumber
                   size="large"
-                  value={inputValues.passengers}
-                  onChange={(value) =>
-                    setInputValues({ ...inputValues, passengers: value })
-                  }
+                  min={1}
+                  value={pesseng}
+                  onChange={setPesseng}
                 />
               </Form.Item>
             </Col>
           </Row>
-          <Button disabled={disabledSave} type="primary" htmlType="submit">
+          <Button
+            disabled={disabledSave}
+            size="large"
+            type="primary"
+            htmlType="submit"
+          >
             Travel
           </Button>
         </Form>

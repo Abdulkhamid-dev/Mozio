@@ -11,8 +11,8 @@ export interface ISelectOpt {
   value: string;
 }
 export interface IinputValues {
-  start: string;
-  end: string;
+  origin: string;
+  destination: string;
   intermediates: string[];
   passengers: string | number | null;
   date: Moment | null;
