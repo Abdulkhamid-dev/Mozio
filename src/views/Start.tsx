@@ -29,7 +29,7 @@ function Start() {
 
   const getCities = async () => {
     try {
-      const { data } = await axios.get<ICity[]>("http://localhost:3010/cities");
+      const { data } = await axios.get<ICity[]>("https://mozio-server.herokuapp.com/cities");
       setCities(data);
     } catch (error) {
       console.log(error);
@@ -41,7 +41,8 @@ function Start() {
       setLoading(true);
       try {
         const { data } = await axios.get(
-          `http://localhost:3010/cities?name=${debouncedSearch}`
+          `https://mozio-server.herokuapp.com/cities?name=${debouncedSearch}`
+          
         );
         setCities(data);
         setLoading(false);

@@ -52,7 +52,7 @@ function Result() {
   const getLonLat = async (city: string) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3010/cities?name=${city}`
+        `https://mozio-server.herokuapp.com/cities?name=${city}`
       );
       if (data) {
         return data;
