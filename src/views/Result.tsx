@@ -30,6 +30,7 @@ function Result() {
   console.log(distance);
 
   const calcAllDist = () => {
+    setDistance(0);
     setLoading(true);
     allLocation.forEach(async (item, index) => {
       if (allLocation[index + 1]) {
